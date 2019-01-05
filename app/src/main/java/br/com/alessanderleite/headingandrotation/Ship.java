@@ -105,4 +105,39 @@ public class Ship {
     public void setMovementState(int state) {
         shipMoving = state;
     }
+
+    /*
+    * This update method will be called from update in HeadingAndRotationView
+    * It determines if the player ship needs to move and changes the coordinates
+    * and rotation when necessary
+    */
+
+    public void update(long fps) {
+
+        /*
+        * Where are we facing at the moment
+        * Then when we rotate we can work out
+        * by how much
+        */
+
+        float previousFA = facingAngle;
+
+        if (shipMoving == LEFT) {
+            facingAngle = facingAngle - rotationSpeed / fps;
+            if (facingAngle < 1) {
+                facingAngle = 360;
+            }
+        }
+
+        if (shipMoving == RIGHT) {
+            facingAngle = facingAngle + rotationSpeed / fps;
+            if (facingAngle > 360) {
+                facingAngle = 1;
+            }
+        }
+
+        if (shipMoving == THRUSTING) {
+            
+        }
+    }
 }
