@@ -1,5 +1,6 @@
 package br.com.alessanderleite.headingandrotation;
 
+import android.content.Context;
 import android.graphics.PointF;
 
 public class Ship {
@@ -46,4 +47,33 @@ public class Ship {
 
     // Is the ship moving and in which direction
     private int shipMoving = STOPPED;
+
+    /*
+    * This the the contructor method
+    * When we create an object from this class we will pass
+    * in the screen width and height
+    */
+
+    public Ship(Context context, int screenX, int screenY) {
+
+        length = screenX / 5;
+        width = screenY / 5;
+
+        a = new PointF();
+        b = new PointF();
+        c = new PointF();
+        centre = new PointF();
+
+        centre.x = screenX / 2;
+        centre.y = screenY / 2;
+
+        a.x = centre.x;
+        a.y = centre.y - length /2;
+
+        b.x = centre.x - width / 2;
+        b.y = centre.y + length / 2;
+
+        c.x = centre.x + width / 2;
+        c.y = centre.y + length / 2;
+    }
 }
