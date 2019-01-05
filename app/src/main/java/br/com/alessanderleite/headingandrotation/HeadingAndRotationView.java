@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -28,6 +29,9 @@ public class HeadingAndRotationView extends SurfaceView implements Runnable {
     Canvas canvas;
     Paint paint;
 
+    // This variable tracks the game frame rate
+    long fps;
+
     // This is used to help calculate the fps
     private long timeThisFrame;
 
@@ -48,5 +52,30 @@ public class HeadingAndRotationView extends SurfaceView implements Runnable {
     @Override
     public void run() {
 
+    }
+
+    private void update() {
+
+        // Move the player's ship
+        ship.update(fps);
+    }
+
+    // If the Activity is paused/stopped
+    // shutdown our thread.
+    public void pause() {
+        playing = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            Log.e("Error:", " joining thread");
+        }
+    }
+
+    // If the Activity is started then
+    // start our thread.
+    public void resume() {
+        playing = true;
+        gameThread = new Thread(this);
+        gameThread.start();
     }
 }
