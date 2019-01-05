@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -159,5 +160,41 @@ public class HeadingAndRotationView extends SurfaceView implements Runnable {
         playing = true;
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    // The SurfaceView class implements onTouchListener
+    // So we can override this method and detect screen touches.
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+
+            // Player has touched the screen
+            case MotionEvent.ACTION_DOWN:
+
+                paused = false;
+
+                if (motionEvent.getY() > screenY - screenY / 8) {
+                    if (motionEvent.getX() > screenX / 2) {
+                        ship.setMovementState(ship.RIGHT);
+                    } else {
+                        ship.setMovementState(ship.LEFT);
+                    }
+                }
+
+                if (motionEvent.getY() < screenY - screenY / 8) {
+                    // Thrust
+                    ship.setMovementState(ship.THRUSTING);
+                }
+                break;
+
+            // Player has removed finger from screen
+            case MotionEvent.ACTION_SCROLL:
+
+                ship.setMovementState(ship.STOPPED);
+
+                break;
+        }
+        return true;
     }
 }
