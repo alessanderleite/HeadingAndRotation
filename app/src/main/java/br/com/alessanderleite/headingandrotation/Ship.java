@@ -137,7 +137,31 @@ public class Ship {
         }
 
         if (shipMoving == THRUSTING) {
-            
+
+            /*
+            * facingAngle can be any angle between 1  and 360 degrees
+            * the Math.toRadians method simply converts the more conventional
+            * degree measurements to radians which are required by
+            * the cos and sin methods.
+            */
+
+            horizontalVelocity = (float)(Math.cos(Math.toRadians(facingAngle)));
+            verticalVelocity = (float)(Math.sin(Math.toRadians(facingAngle)));
+
+            // move the ship - 1 point at a time
+            centre.x = centre.x + horizontalVelocity * speed / fps;
+            centre.y = centre.y + verticalVelocity * speed / fps;
+
+            a.x = a.x + horizontalVelocity * speed / fps;
+            a.y = a.y + verticalVelocity * speed / fps;
+
+            b.x = b.x + horizontalVelocity * speed / fps;
+            b.y = b.y + verticalVelocity * speed / fps;
+
+            c.x = c.x + horizontalVelocity * speed /fps;
+            c.y = c.y + verticalVelocity * speed / fps;
         }
+
+
     }
 }
