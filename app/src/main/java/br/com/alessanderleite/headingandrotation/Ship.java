@@ -76,4 +76,33 @@ public class Ship {
         c.x = centre.x + width / 2;
         c.y = centre.y + length / 2;
     }
+
+    public PointF getCentre() {
+        return centre;
+    }
+
+    public PointF getA() {
+        return a;
+    }
+
+    public PointF getB() {
+        return b;
+    }
+
+    public PointF getC() {
+        return c;
+    }
+
+    public float getFacingAngle() {
+        return facingAngle;
+    }
+
+    /*
+    * This method will be used to change/set if the
+    * ship is rotating left, right or thrusting
+    */
+
+    public void setMovementState(int state) {
+        shipMoving = state;
+    }
 }
