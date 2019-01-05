@@ -45,13 +45,34 @@ public class HeadingAndRotationView extends SurfaceView implements Runnable {
 
     // When we initialize (call new()) on view
     // This special constructor method runs
-
     public HeadingAndRotationView(Context context, int x, int y) {
+
+        /*
+        * The next line of code asks the
+        * SurfaceView class to set up our object.
+        * How kind.
+        */
+
         super(context);
+
+        // Make a globally availabel copy of the context so we can use it in another method
+        this.context = context;
+
+        // Initialize ourHolder and paint objects
+        ourHolder = getHolder();
+        paint = new Paint();
+
+        screenX = x;
+        screenY = y;
+
+        // Make a new player space ship
+        ship = new Ship(context, screenX, screenY);
+
     }
 
     @Override
     public void run() {
+
 
     }
 
